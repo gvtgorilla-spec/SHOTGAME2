@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://kmju6dd41drk"]
+
+[ext_resource type="PackedScene" uid="uid://b45jjp5hotgq0" path="res://enemy/enemy.tscn" id="1_7k104"]
+[ext_resource type="Script" uid="uid://b7k2jpkik8416" path="res://enemy/health.gd" id="2_4gyqm"]
+[ext_resource type="PackedScene" uid="uid://b526ks4jgvknt" path="res://sprite_3d.tscn" id="3_qi2p4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7xaro"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7k104"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4gyqm"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qi2p4"]
+viewport_path = NodePath("SubViewport")
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_7xaro")
+
+[node name="inimigomesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_7k104")
+surface_material_override/0 = SubResource("StandardMaterial3D_4gyqm")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="HealthComponent" parent="." instance=ExtResource("1_7k104")]
+script = ExtResource("2_4gyqm")
+max_health = 100.0
+
+[node name="HealthBar" parent="." instance=ExtResource("3_qi2p4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2106055, 0)
+texture = SubResource("ViewportTexture_qi2p4")
